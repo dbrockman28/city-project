@@ -19,4 +19,21 @@ let getStream = function(input) {
   })
 };
 
-getStream("breaking bad");
+let get
+
+let getReview = function(input) {
+  fetch("https://api.nytimes.com/svc/movies/v2/reviews/search.json?query=" + input + "&api-key=tBUQTtI1tnfA4wttm49bSlGoCL53eOaO")
+  .then(function(response) {
+    if (response.ok) {
+      response.json().then(function(data) {
+        console.log(data);
+      });
+    } else {
+      alert("Unable to connect to New York Times")
+    }
+  })
+};
+
+getStream("shrek");
+
+getReview("shrek");
