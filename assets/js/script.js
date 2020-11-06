@@ -37,3 +37,53 @@ let getReview = function(input) {
 getStream("shrek");
 
 getReview("shrek");
+
+let submitButton=document.getElementById(“submit”);
+  submitButton.addEventListener(“click”, e =>{
+      e.preventDefault();
+      let value=document.getElementById(“search”).value;
+      if (value.length>0){
+          getStream(value);
+      }
+  })
+let displayResults= function(data){
+    let container=document.getElementById(“searchResults”);
+    container.innerHTML=“”;
+    let results=data.results;
+    results.forEach((result,index)=>{
+        let card=document.createElement(“div”);
+        card.classList.add(“resultCard”);
+        container.appendChild(card);
+        let imageContainer=document.createElement(“div”);
+            imageContainer.classList.add(“imageContainer”);
+            card.appendChild(imageContainer);
+        let image=document.createElement(“img”);
+        image.classList.add(“movieImage”);
+        image.src=result.picture;
+        image.alt=result.name;
+        imageContainer.appendChild(image);
+        let title=document.createElement(“h2");
+        title.classList.add(“title”);
+        title.innerText=result.name;
+        card.appendChild(title);
+        let services=document.createElement(“div”);
+        services.classList.add(“servicesList”);
+        card.appendChild(services);
+        result.locations.forEach((location,index)=>{
+            let serviceDiv=document.createElement(“div”);
+            serviceDiv.classList.add(“service”);
+            services.appendChild(serviceDiv);
+            let icon=document.createElement(“img”);
+            icon.src=location.icon;
+            icon.alt=location.display_name;
+            serviceDiv.appendChild(icon);
+            serviceDiv.addEventListener(“click”, e=>{
+                window.location.target=“_blank”;
+                window.location.href=location.url;
+            });
+        });
+        card.addEventListener(“click”,e=>{
+            getReview(data.name);
+        })
+    })
+}
