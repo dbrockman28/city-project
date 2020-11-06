@@ -19,8 +19,6 @@ let getStream = function(input) {
   })
 };
 
-let get
-
 let getReview = function(input) {
   fetch("https://api.nytimes.com/svc/movies/v2/reviews/search.json?query=" + input + "&api-key=tBUQTtI1tnfA4wttm49bSlGoCL53eOaO")
   .then(function(response) {
@@ -33,7 +31,3 @@ let getReview = function(input) {
     }
   })
 };
-
-getStream("shrek");
-
-getReview("shrek");
