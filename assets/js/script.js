@@ -26,6 +26,7 @@ let getReview = function (input) {
       if (response.ok) {
         response.json().then(function (data) {
           console.log(data);
+          displayReviews(data);
         });
       } else {
         alert("Unable to connect to New York Times")
@@ -39,6 +40,7 @@ let submitButton = document.getElementById("submit");
     let value = document.getElementById("search").value;
     if (value.length > 0) {
       getStream(value);
+      getReview(value);
     }
 });
 
@@ -81,5 +83,29 @@ let displayResults = function (data) {
     card.addEventListener("click", e => {
       getReview(data.name);
     })
+  })
+}
+
+let displayReviews = function (data) {
+  let container = document.getElementById("reviewResults");
+  container.innerHTML = "";
+  let results = data.results;
+  results.forEach((result, index) => {
+    let card = document.createElement("div");
+    card.classList.add("resultCard");
+    container.appendChild(card);
+    let title = document.createElement("h2");
+    title.classList.add("title");
+    title.innerHTML = result.display_title;
+    card.appendChild(title);
+    let summary = document.createElement("div");
+    let summaryText = document.createElement("p");
+    summaryText.innerHTML = result.summary_short;
+    summary.appendChild(summaryText);
+    card.appendChild(summary);
+    let reviewLink = document.createElement("a");
+    reviewLink.innerHTML = result.link.suggested_link_text;
+    reviewLink.href = result.link.url;
+    card.appendChild(reviewLink);
   })
 }
