@@ -41,7 +41,10 @@ let submitButton = document.getElementById("submit");
     if (value.length > 0) {
       getStream(value);
       getReview(value);
+      searchHistory.push(value);
+      localStorage.setItem("search",JSON.stringify(searchHistory));
     }
+    displaySearchHistory();
 });
 
 let displayResults = function (data) {
@@ -108,4 +111,37 @@ let displayReviews = function (data) {
     reviewLink.href = result.link.url;
     card.appendChild(reviewLink);
   })
+}
+
+var clearHistoryEl = document.getElementById("clear-history");
+var historyEl = document.getElementById("movie-history");
+var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
+
+clearHistoryEl.addEventListener("click",function(){
+  searchHistory = [];
+  localStorage.setItem("search",JSON.stringify(searchHistory));
+  displaySearchHistory();
+  document.getElementById("reviewResults").innerHTML = "";
+  document.getElementById("searchResults").innerHTML = "";
+})
+
+function displaySearchHistory() {
+  historyEl.innerHTML = "";
+  console.log(searchHistory);
+  for (var i = 0; i < searchHistory.length; i++) {
+    var pastMovie = document.createElement("li");
+    pastMovie.innerHTML= searchHistory[i];
+    //pastMovie.setAttribute("value", searchHistory[i]);
+    let movieName = searchHistory[i];
+    pastMovie.addEventListener("click",function(){
+      getStream(movieName);
+      getReview(movieName);
+    })
+    historyEl.append(pastMovie);
+    console.log(pastMovie);
+  }
+}
+displaySearchHistory();
+if (searchHistory.length > 0) {
+  displayResults(searchHistory[searchHistory.length - 1]);
 }

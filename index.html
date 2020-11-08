@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <head>
 <link rel="stylesheet" href="assets/css/style.css"/>
+<script src="https://kit.fontawesome.com/dd561ea997.js" crossorigin="anonymous"></script>
 </head>
 <body>
 <header>
@@ -9,8 +10,12 @@
     <div class="searchContainer">
         <form>
             <input type="text" id="search" placeholder="Search for a Movie"/>
-            <button type="submit" id="submit">Search</button>
+            <button type="submit" id="submit">Search<i class="fa fa-search"></i></button>
         </form>
+        <div id="searchHistory">
+            <button type="button" id="clear-history">Clear Search History</button>
+            <ul id="movie-history"></ul>
+        </div>
         <div id="searchResults"></div>
         <div id="reviewResults"></div>
     </div>
