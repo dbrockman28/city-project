@@ -1,3 +1,7 @@
+var clearHistoryEl = document.getElementById("clear-history");
+var historyEl = document.getElementById("movie-history");
+var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
+
 let getStream = function (input) {
   fetch("https://rapidapi.p.rapidapi.com/lookup?term=" + input + "&country=us", {
     "method": "GET",
@@ -112,10 +116,6 @@ let displayReviews = function (data) {
     card.appendChild(reviewLink);
   })
 }
-
-var clearHistoryEl = document.getElementById("clear-history");
-var historyEl = document.getElementById("movie-history");
-var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 
 clearHistoryEl.addEventListener("click",function(){
   searchHistory = [];
