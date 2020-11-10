@@ -52,70 +52,108 @@ let submitButton = document.getElementById("submit");
 });
 
 let displayResults = function (data) {
-  let container = document.getElementById("searchResults");
-  container.innerHTML = "";
+
+  // search results div 
+  let searchResultsEl = document.getElementById("searchResults");
+  searchResultsEl.innerHTML = "";
   let results = data.results;
+
   results.forEach((result, index) => {
-    let card = document.createElement("div");
-    card.classList.add("resultCard");
-    container.appendChild(card);
+
+    // div set as a column to hold each result
+    let containerEl = document.createElement("div");
+    containerEl.classList.add("col", "s3");
+    searchResultsEl.appendChild(containerEl);
+
+    // card div to hold each movie's results 
+    let cardContainer = document.createElement("div");
+    cardContainer.classList.add("card");
+    containerEl.appendChild(cardContainer);
+
+    // movie titles are set as span elements now bc of card-title class
+    let titleEl = document.createElement("span");
+    titleEl.classList.add("card-title");
+    titleEl.innerText = result.name;
+    cardContainer.appendChild(titleEl);
+
     let imageContainer = document.createElement("div");
-    imageContainer.classList.add("imageContainer");
-    card.appendChild(imageContainer);
+    imageContainer.classList.add("card-image");
+    cardContainer.appendChild(imageContainer);
+
     let image = document.createElement("img");
-    image.classList.add("movieImage");
     image.src = result.picture;
     image.alt = result.name;
     imageContainer.appendChild(image);
-    let title = document.createElement("h2");
-    title.classList.add("title");
-    title.innerText = result.name;
-    card.appendChild(title);
-    let services = document.createElement("div");
-    services.classList.add("servicesList");
-    card.appendChild(services);
+
+    let serviceDiv = document.createElement("div");
+    serviceDiv.classList.add("card-content");
+    cardContainer.appendChild(serviceDiv);
+
+    let serviceText = document.createElement("p");
+    serviceText.textContent = "Stream it here:";
+    serviceDiv.appendChild(serviceText);
+
     result.locations.forEach((location, index) => {
-      let serviceDiv = document.createElement("div");
-      serviceDiv.classList.add("service");
-      services.appendChild(serviceDiv);
+
       let icon = document.createElement("img");
+      icon.classList.add("serviceImg");
       icon.src = location.icon;
       icon.alt = location.display_name;
       serviceDiv.appendChild(icon);
+
       serviceDiv.addEventListener("click", e => {
         window.location.target = "_blank";
         window.location.href = location.url;
       });
     });
-    card.addEventListener("click", e => {
+    cardContainer.addEventListener("click", e => {
       getReview(data.name);
     })
   })
 }
 
 let displayReviews = function (data) {
-  let container = document.getElementById("reviewResults");
-  container.innerHTML = "";
+
+  let reviewResultsEl = document.getElementById("reviewResults");
+  reviewResultsEl.innerHTML = "";
   let results = data.results;
+
   results.forEach((result, index) => {
-    let card = document.createElement("div");
-    card.classList.add("resultCard");
-    container.appendChild(card);
-    let title = document.createElement("h2");
-    title.classList.add("title");
-    title.innerHTML = result.display_title;
-    card.appendChild(title);
-    let summary = document.createElement("div");
+    
+    // div set as a column for each review result 
+    let containerEl = document.createElement("div");
+    containerEl.classList.add("col", "s3");
+    reviewResultsEl.appendChild(containerEl);
+
+    // card div to hold each 's review 
+    let cardContainer = document.createElement("div");
+    cardContainer.classList.add("card");
+    containerEl.appendChild(cardContainer);
+
+    let titleEl = document.createElement("span");
+    titleEl.classList.add("card-title");
+    titleEl.innerHTML = result.display_title;
+    cardContainer.appendChild(titleEl);
+
+    // review summary - hide overflow 
+    let summaryEl = document.createElement("div");
+    summaryEl.classList.add("card-content");
     let summaryText = document.createElement("p");
     summaryText.innerHTML = result.summary_short;
-    summary.appendChild(summaryText);
-    card.appendChild(summary);
+    summaryEl.appendChild(summaryText);
+    cardContainer.appendChild(summaryEl);
+
+    let linkContainer = document.createElement("div");
+    linkContainer.classList.add("card-action");
+    cardContainer.appendChild(linkContainer);
+    // links as card-action to go to NYT review
     let reviewLink = document.createElement("a");
+    reviewLink.classList.add("blue-text", "text-darken-4");
     reviewLink.innerHTML = result.link.suggested_link_text;
     reviewLink.href = result.link.url;
-    card.appendChild(reviewLink);
+    linkContainer.appendChild(reviewLink);
   })
-}
+};
 
 clearHistoryEl.addEventListener("click",function(){
   searchHistory = [];
@@ -128,8 +166,10 @@ clearHistoryEl.addEventListener("click",function(){
 function displaySearchHistory() {
   historyEl.innerHTML = "";
   console.log(searchHistory);
+
   for (var i = 0; i < searchHistory.length; i++) {
     var pastMovie = document.createElement("li");
+    pastMovie.classList.add("searchList", "blue", "darken-4");
     pastMovie.innerHTML= searchHistory[i];
     //pastMovie.setAttribute("value", searchHistory[i]);
     let movieName = searchHistory[i];
