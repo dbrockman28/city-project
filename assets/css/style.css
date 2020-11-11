@@ -33,13 +33,13 @@ nav {
     justify-content: space-between;
     margin-top: 5em;
     display: flex;
-    flex-wrap: wrap;
     flex-direction: column;
 }
 /* card styling. still weird with spacing */ 
 .card {
     margin: 15px 1%;
     height: 100%;
+    width: 15em;
 }
 .card-image {
     padding-top: 5% !important;
@@ -47,6 +47,10 @@ nav {
 /* icon img is serviceImg */
 .serviceImg {
     width: fit-content;
+    transition: .7s ease-in-out;
+}
+.serviceImg:hover {
+    transform: scale(1.2);
 }
 .card-image img {
     height: auto;
@@ -54,12 +58,21 @@ nav {
 .centerResults {
     display: flex;
     justify-content: center;
+    margin: auto;
 }
-.card-content {
+.card.medium .card-content {
     display: flex;
     flex-direction: column;
-    max-height: 300px;
-    overflow: scroll;
+    overflow: auto;
+}
+.card.large .card-image+.card-content {
+    max-height: 80%;
+}
+.card-content {
+    margin-bottom: 10px;
+}
+.card-content::-webkit-scrollbar {
+    display: none;
 }
 .card-content::-webkit-scrollbar {
     display: none;
@@ -84,6 +97,7 @@ nav {
     border: 1px solid white;
     text-align: center;
     color: white;
+    cursor: pointer;
 }
 /* since it isn't a button, added hover effect so user knows they can 
 click on the previous search to see that result again */ 

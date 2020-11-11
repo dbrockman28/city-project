@@ -62,12 +62,12 @@ let displayResults = function (data) {
 
     // div set as a column to hold each result
     let containerEl = document.createElement("div");
-    containerEl.classList.add("col", "s3");
+    containerEl.classList.add("col");
     searchResultsEl.appendChild(containerEl);
 
     // card div to hold each movie's results 
     let cardContainer = document.createElement("div");
-    cardContainer.classList.add("card");
+    cardContainer.classList.add("card", "large");
     containerEl.appendChild(cardContainer);
 
     // movie titles are set as span elements now bc of card-title class
@@ -122,12 +122,12 @@ let displayReviews = function (data) {
     
     // div set as a column for each review result 
     let containerEl = document.createElement("div");
-    containerEl.classList.add("col", "s3");
+    containerEl.classList.add("col");
     reviewResultsEl.appendChild(containerEl);
 
     // card div to hold each 's review 
     let cardContainer = document.createElement("div");
-    cardContainer.classList.add("card");
+    cardContainer.classList.add("card", "large");
     containerEl.appendChild(cardContainer);
 
     let titleEl = document.createElement("span");
