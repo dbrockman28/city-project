@@ -2,6 +2,13 @@ var clearHistoryEl = document.getElementById("clear-history");
 var historyEl = document.getElementById("movie-history");
 var searchHistory = JSON.parse(localStorage.getItem("search")) || [];
 
+let displayError = function(text) {
+  let errorText = document.createElement("p");
+  errorText.innerHTML = text;
+  let errorTextEl = document.body;
+  errorTextEl.appendChild(errorText);
+}
+
 let getStream = function (input) {
   fetch("https://rapidapi.p.rapidapi.com/lookup?term=" + input + "&country=us", {
     "method": "GET",
@@ -12,15 +19,14 @@ let getStream = function (input) {
   }).then(function (response) {
     if (response.ok) {
       response.json().then(function (data) {
-        console.log(data);
         displayResults(data);
       });
     } else {
-      alert("Error: " + response.statusText);
+      displayError("Error: " + response.statusText);
     }
   })
     .catch(function (error) {
-      alert("Unable to connect to Utelly")
+      displayError("Unable to connect to Utelly")
     })
 };
 
@@ -29,11 +35,10 @@ let getReview = function (input) {
     .then(function (response) {
       if (response.ok) {
         response.json().then(function (data) {
-          console.log(data);
           displayReviews(data);
         });
       } else {
-        alert("Unable to connect to New York Times")
+        displayError("Unable to connect to New York Times")
       }
     })
 };
@@ -167,7 +172,6 @@ clearHistoryEl.addEventListener("click",function(){
 
 function displaySearchHistory() {
   historyEl.innerHTML = "";
-  console.log(searchHistory);
 
   for (var i = 0; i < searchHistory.length; i++) {
     var pastMovie = document.createElement("li");
@@ -180,7 +184,6 @@ function displaySearchHistory() {
       getReview(movieName);
     })
     historyEl.append(pastMovie);
-    console.log(pastMovie);
   }
 }
 displaySearchHistory();
