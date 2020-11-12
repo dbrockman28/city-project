@@ -48,6 +48,7 @@ let submitButton = document.getElementById("submit");
       searchHistory.push(value);
       localStorage.setItem("search",JSON.stringify(searchHistory));
     }
+    document.getElementById("search").value = '';
     displaySearchHistory();
 });
 
