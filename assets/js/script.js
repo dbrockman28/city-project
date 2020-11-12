@@ -60,7 +60,7 @@ let displayResults = function (data) {
 
   // search results div 
   let searchResultsEl = document.getElementById("searchResults");
-  searchResultsEl.inner = "";
+  searchResultsEl.innerHTML = "";
   let results = data.results;
 
   results.forEach((result, index) => {
