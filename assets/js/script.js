@@ -55,7 +55,7 @@ let displayResults = function (data) {
 
   // search results div 
   let searchResultsEl = document.getElementById("searchResults");
-  searchResultsEl.innerHTML = "";
+  searchResultsEl.inner = "";
   let results = data.results;
 
   results.forEach((result, index) => {
@@ -71,11 +71,6 @@ let displayResults = function (data) {
     containerEl.appendChild(cardContainer);
 
     // movie titles are set as span elements now bc of card-title class
-    let titleEl = document.createElement("span");
-    titleEl.classList.add("card-title");
-    titleEl.innerText = result.name;
-    cardContainer.appendChild(titleEl);
-
     let imageContainer = document.createElement("div");
     imageContainer.classList.add("card-image");
     cardContainer.appendChild(imageContainer);
@@ -85,11 +80,17 @@ let displayResults = function (data) {
     image.alt = result.name;
     imageContainer.appendChild(image);
 
+    let titleEl = document.createElement("span");
+    titleEl.classList.add("card-title");
+    titleEl.innerText = result.name;
+    cardContainer.appendChild(titleEl);
+
     let serviceDiv = document.createElement("div");
     serviceDiv.classList.add("card-content");
     cardContainer.appendChild(serviceDiv);
 
     let serviceText = document.createElement("p");
+    serviceText.classList.add("stream-it")
     serviceText.textContent = "Stream it here:";
     serviceDiv.appendChild(serviceText);
 
@@ -139,6 +140,7 @@ let displayReviews = function (data) {
     let summaryEl = document.createElement("div");
     summaryEl.classList.add("card-content");
     let summaryText = document.createElement("p");
+    summaryText.classList.add("summary");
     summaryText.innerHTML = result.summary_short;
     summaryEl.appendChild(summaryText);
     cardContainer.appendChild(summaryEl);

@@ -47,13 +47,15 @@ nav {
 /* icon img is serviceImg */
 .serviceImg {
     width: fit-content;
-    transition: .7s ease-in-out;
+    transition: .25s ease-in-out;
+    margin-top: 5px;
 }
 .serviceImg:hover {
     transform: scale(1.2);
 }
 .card-image img {
-    height: auto;
+    height: 150px;
+    width: 250px;
 }
 .centerResults {
     display: flex;
@@ -70,9 +72,6 @@ nav {
 }
 .card-content {
     margin-bottom: 10px;
-}
-.card-content::-webkit-scrollbar {
-    display: none;
 }
 .card .card-content p {
     padding-bottom: 5% !important;
@@ -101,4 +100,22 @@ click on the previous search to see that result again */
 .searchList:hover {
     border: 3px solid #ffff66;
     color: #ffff66;
+}
+
+.summary {
+    height: 300px;
+    overflow: auto;
+}
+
+.summary::-webkit-scrollbar {
+    display: none;
+}
+.stream-it {
+    font-weight: bold;
+    border-bottom: black solid 2px;
+    margin-bottom: 10px !important;
+    text-align: center;
+}
+#searchResults .card .card-content {
+    text-align: center;
 }
