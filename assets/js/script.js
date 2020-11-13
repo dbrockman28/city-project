@@ -108,7 +108,7 @@ let displayResults = function (data) {
       icon.alt = location.display_name;
       serviceDiv.appendChild(icon);
 
-      serviceDiv.addEventListener("click", e => {
+      icon.addEventListener("click", e => {
         window.location.target = "_blank";
         window.location.href = location.url;
       });
