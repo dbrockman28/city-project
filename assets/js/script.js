@@ -109,8 +109,7 @@ let displayResults = function (data) {
       serviceDiv.appendChild(icon);
 
       icon.addEventListener("click", e => {
-        window.location.target = "_blank";
-        window.location.href = location.url;
+        window.open(location.url, "_blank");
       });
     });
     cardContainer.addEventListener("click", e => {
