@@ -20,4 +20,4 @@ https://github.com/dbrockman28/movie-finder
 
 ## Screenshot of website can be found below:
 
-![This is a screenshot of the Movie Finder browser application](/assets/images)
+![This is a screenshot of the Movie Finder browser application](/assets/images/screenshot.PNG)
