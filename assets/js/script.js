@@ -30,18 +30,43 @@ let getStream = function (input) {
     })
 };
 
-let getReview = function (input) {
+let getReview = function (input, mode=null) {
   fetch("https://api.nytimes.com/svc/movies/v2/reviews/search.json?query=" + input + "&api-key=tBUQTtI1tnfA4wttm49bSlGoCL53eOaO")
     .then(function (response) {
       if (response.ok) {
         response.json().then(function (data) {
           displayReviews(data);
+          if (!mode) {
+            displayReviews(data);
+          }
+          else {
+            displayModalReview(data);
+          }
         });
       } else {
         displayError("Unable to connect to New York Times")
       }
     })
 };
+let displayModalReview = function(data) {
+  let title=document.getElementById("modalTitle");
+  let paragraph=document.getElementById("modalText");
+  let modal=document.getElementById("reviewModal");
+  let modalClose = document.getElementById("modalClose");
+  modalClose.addEventListener("click", e=> {
+    modal.classList.add("hide");
+  })
+  if (data.results.length===0) {
+    title.innerHTML="No review Found.";
+    paragraph.innerHTML="";
+    modal.classList.remove("hide");
+  }
+  else {
+    title.innerHTML=data.results[0].headline;
+    paragraph.innerHTML=data.results[0].summary_short;
+    modal.classList.remove("hide");
+  }
+}
 
 let submitButton = document.getElementById("submit");
   submitButton.addEventListener("click", e => {
@@ -50,8 +75,13 @@ let submitButton = document.getElementById("submit");
     if (value.length > 0) {
       getStream(value);
       getReview(value);
-      searchHistory.push(value);
-      localStorage.setItem("search",JSON.stringify(searchHistory));
+      if (searchHistory.includes(value)){
+      return;
+      }
+      else {
+        searchHistory.push(value);
+        localStorage.setItem("search",JSON.stringify(searchHistory));
+      }
     }
     document.getElementById("search").value = '';
     displaySearchHistory();
@@ -113,7 +143,7 @@ let displayResults = function (data) {
       });
     });
     cardContainer.addEventListener("click", e => {
-      getReview(data.name);
+      getReview(result.name,"review");
     })
   })
 }
@@ -131,7 +161,7 @@ let displayReviews = function (data) {
     containerEl.classList.add("col");
     reviewResultsEl.appendChild(containerEl);
 
-    // card div to hold each 's review 
+    // card div to hold each of review 
     let cardContainer = document.createElement("div");
     cardContainer.classList.add("card", "large");
     containerEl.appendChild(cardContainer);
